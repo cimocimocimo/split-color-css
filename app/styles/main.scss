@@ -1,0 +1,171 @@
+// bower:scss
+// endbower
+
+/*
+ * Vertical Centering Mixin - now 100% table free!
+ * http://css-tricks.com/centering-in-the-unknown/
+ */
+@mixin verticalCenterChildElements() {
+    font-size: 0; /* set to remove the spacing from the :before element */
+
+    // shim
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    // child elements
+    > * {
+        font-size: 16px; /* ratchet up the font-size to the default base hight; */
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+@mixin clearfix() {
+    &:after, &:before {
+                 content: "";
+                 display: table;
+             }
+    &:after {
+        clear: both;
+    }
+}
+
+.clearfix,
+%clearfix {
+    @include clearfix();
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #fafafa;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.container {
+    @include verticalCenterChildElements;
+
+    height: 100%;
+    display: inline-block;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+@function sqrt($r) {
+  $x0: 1;
+  $x1: $x0;
+
+  @for $i from 1 through 10 {
+    $x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0);
+    $x0: $x1;
+  }
+
+  @return $x1;
+}
+
+.split-color {
+
+    $length: 100px;
+
+    height: $length;
+    width: $length;
+    overflow: hidden;
+    position: relative;
+
+    .inner {
+        transform: rotate(45deg);
+
+        $hypotenuse: sqrt(2);
+        height: percentage($hypotenuse);
+        width: percentage($hypotenuse);
+        background: red;
+        position: absolute;
+        top: -100%;
+        right: -100%;
+        bottom: -100%;
+        left: -100%;
+        margin: auto;
+
+        &:before,
+        &:after {
+            content: '';
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        &:before {
+            left: 0;
+            right: 50%;
+            background: blue;
+        }
+        &:after {
+            left: 50%;
+            right: 100%;
+            background: green;
+        }
+        > div {
+            height: 100%;
+            width: 0;
+            left: 50%;
+            border-right: 1px solid black;
+            position: absolute;
+            z-index: 1;
+        }
+    }
+}
+
+
+.split-color-triangle {
+    $length: 100px;
+
+    background: black;
+    position: relative;
+    height: $length;
+    width: $length;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+        content: '';
+        width: 0;
+        height: 0;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 0;
+        border: $length/2 solid black;
+    }
+    &:before {
+        border-color: blue transparent transparent blue;
+    }
+    &:after {
+        border-color: transparent green green transparent;
+    }
+    > div {
+        transform: rotate(45deg);
+        transform-origin: bottom left;
+        height: 150%;
+        width: 0;
+        left: 0;
+        bottom: 0;
+        border-right: 1px solid black;
+        position: absolute;
+        z-index: 1;
+    }
+
+}
