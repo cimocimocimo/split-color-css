@@ -25,10 +25,11 @@
 }
 
 @mixin clearfix() {
-    &:after, &:before {
-                 content: "";
-                 display: table;
-             }
+    &:after,
+    &:before {
+        content: "";
+        display: table;
+    }
     &:after {
         clear: both;
     }
@@ -61,7 +62,6 @@ body {
 * {
     box-sizing: border-box;
 }
-
 
 @function sqrt($r) {
   $x0: 1;
@@ -118,7 +118,7 @@ body {
             right: 100%;
             background: green;
         }
-        > div {
+        .diagonal-line {
             height: 100%;
             width: 0;
             left: 50%;
@@ -129,7 +129,6 @@ body {
     }
 }
 
-
 .split-color-triangle {
     $length: 100px;
 
@@ -139,8 +138,7 @@ body {
     width: $length;
     overflow: hidden;
 
-    &:before,
-    &:after {
+    &:before {
         content: '';
         width: 0;
         height: 0;
@@ -148,24 +146,17 @@ body {
         left: 0;
         position: absolute;
         z-index: 0;
-        border: $length/2 solid black;
+        border-width: $length/2;
+        border-style: solid;
+        border-color: transparent;
     }
-    &:before {
-        border-color: blue transparent transparent blue;
-    }
-    &:after {
-        border-color: transparent green green transparent;
-    }
-    > div {
-        transform: rotate(45deg);
-        transform-origin: bottom left;
-        height: 150%;
-        width: 0;
-        left: 0;
-        bottom: 0;
-        border-right: 1px solid black;
-        position: absolute;
-        z-index: 1;
-    }
+}
 
+.swatch-ivoryGold {
+    background-color: ivory;
+
+    &:before {
+        border-top-color: gold;
+        border-left-color: gold;
+    }
 }
